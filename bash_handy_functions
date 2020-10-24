@@ -1,0 +1,42 @@
+function checkcert()
+{
+curl -s -k -Sv https://$1 > /dev/null
+
+}
+
+
+function akstage()
+{
+        ## function to get the akamai staging IP for a given website
+        #
+        prodedge=$(dig $1 | grep -m 1 'edgekey.net' | awk '{print $5}')
+        stagedge=$(echo "$prodedge" | sed 's/.edgekey.net/.edgekey-staging.net/')
+        echo "staging edge is $stagedge"
+        stagip=$(ping -c 1 $stagedge | head -1 | awk '{print $3}' | tr -d '():')
+        echo "Add the following to /etc/hosts:"
+        echo "$stagip        $1"
+}
+
+#openssl s_client -showcerts -servername www.dreamteamfc.com -connect 192.0.66.2:443 | openssl x509 -noout -dates -issuer
+
+function checkorigcert()
+{
+	openssl s_client -showcerts -servername $1 -connect $1:443| openssl x509 -noout -dates -issuer
+
+}
+
+function myipcheck()
+{
+	echo $(curl -s http://whatismyip.akamai.com)
+}
+
+
+function mylocation()
+{
+	lynx -dump http://whatismyip.akamai.com/advanced
+}
+
+function myuseragent()
+{
+lynx -dump http://whatsmyuseragent.org/
+}
