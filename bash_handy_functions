@@ -40,3 +40,8 @@ function myuseragent()
 {
 lynx -dump http://whatsmyuseragent.org/
 }
+
+function helios()
+{
+heliosbastion='ssh -l ubuntu 34.247.30.73'
+}
