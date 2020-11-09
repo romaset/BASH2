@@ -45,3 +45,10 @@ function helios()
 {
 heliosbastion='ssh -l ubuntu 34.247.30.73'
 }
+
+function pixel()
+{
+pixelbastion='ssh -l ubuntu 1.2.3.4'
+}
+
+
